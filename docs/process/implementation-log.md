@@ -19,6 +19,7 @@ Format: `YYYY-MM-DD-session-N-<topic>.md` linking to the session-or-equivalent. 
 | 2026-08-05 | UI review + a11y hardening | spec 002, ADR-0006 |
 | 2026-08-05 | Docs infrastructure + websearch stack re-audit + dep bumps | docs/process/*, ADR-0005 (re-audit), AGENTS.md, CLAUDE.md, README |
 | 2026-08-05 | Phases 7-6-8: Supabase + Blog + Admin (full MVP spec 001) | spec 001 (phases 6-8 shipped) |
+| 2026-08-05 | 404 page + CI pipeline + stale cleanup + deploy docs | spec 001 (404 done), AGENTS.md, docs/supabase/, .github/ |
 
 ## Entries
 
@@ -98,7 +99,7 @@ Wrote new spec + ADR capturing the previous session's work:
 
 Updated cross-references in:
 
-- [AGENTS.md](../AGENTS.md) — added docs/process link, removed TBD refs, sharpene d z-index + a11y gotchas
+- [AGENTS.md](../AGENTS.md) — added docs/process link, removed TBD refs, sharpened z-index + a11y gotchas
 - [CLAUDE.md](../CLAUDE.md) — wired process docs into workflow rules, added cavecrew subagent mention
 - [README.md](../../README.md) — reflected shipped MVP state, linked docs/process, added new convention bullets
 - [docs/decisions/README.md](../decisions/README.md) — filled in ADR-0006 row
@@ -154,6 +155,25 @@ Shipped the remaining 3 phases of spec 001 in one batch (phases 7 → 6 → 8, i
 - `@uiw/react-md-editor` (Phase 8)
 
 **`npm run verify` green.** All spec 001 phases (1-8) shipped. Deploy phase remains.
+
+### 2026-08-05 — 404 page + CI pipeline + stale cleanup
+
+Closed the remaining code/docs gaps from the progress audit:
+
+- `src/app/not-found.tsx` — custom dark-only 404 page with link back home (spec 001 requirement)
+- Removed dead `src/components/SectionEyebrow.tsx` (unused export, no imports)
+- `AGENTS.md` — corrected `content/posts/` description to clarify Supabase-backed blog is primary and local MDX is optional
+- `docs/supabase/README.md` — migration index + manual apply instructions
+- `docs/deploy/README.md` — step-by-step manual runbook for Supabase, Cloudinary, GitHub, Vercel, env vars, smoke tests
+- `.github/workflows/ci.yml` — CI pipeline: `npm ci`, `npm run typecheck`, `npm run build` on push/PR to main
+
+`npm run verify` green after this cleanup.
+
+Manual-only follow-ups are intentionally not implemented in code:
+- Create Supabase project
+- Run `docs/supabase/001-posts.sql`
+- Add env vars in `.env.local` / Vercel
+- Deploy on Vercel and configure custom domain
 
 ## Conventions
 

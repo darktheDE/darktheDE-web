@@ -28,8 +28,8 @@ Build a new Next.js 16.3 portfolio + blog at `darkthede.github.io`, replacing th
 - Server-rendered (RSC) for SEO.
 
 **Blog post (`/blog/[slug]`):**
-- Renders MDX from `content/posts/<slug>.mdx`.
-- Typography: Fraunces for H1/H2, Inter for body, Monaspace Neon for code/eyebrows.
+- Renders MDX from Supabase `posts.body_mdx` via `next-mdx-remote/rsc`. `content/posts/` remains optional for future static posts.
+- Typography: Fraunces for H1/H2, Inter for body, Monaspace Neon fallback for code/eyebrows.
 - Code blocks: Shiki syntax highlighting (dual theme light/dark — but since site is dark-only, dark only is fine).
 - Mermaid diagrams: render `\`\`\`mermaid` fences.
 - Cover image at top (Cloudinary URL).

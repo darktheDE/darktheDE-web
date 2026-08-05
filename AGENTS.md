@@ -45,12 +45,14 @@ darktheDE-web/
 │   │   ├── README.md
 │   │   ├── templates/feature.md
 │   │   └── NNN-<slug>.md
-│   └── process/                 # how we work (workflow, checklists, history)
-│       ├── README.md
-│       ├── workflow.md
-│       ├── ui-review-checklist.md
-│       ├── implementation-log.md
-│       └── templates/
+│   ├── process/                 # how we work (workflow, checklists, history)
+│   │   ├── README.md
+│   │   ├── workflow.md
+│   │   ├── ui-review-checklist.md
+│   │   ├── implementation-log.md
+│   │   └── templates/
+│   ├── supabase/                # SQL migrations + setup notes
+│   └── deploy/                  # manual deployment runbook
 ├── content/
 │   └── posts/                   # MDX blog posts (optional — blog reads from Supabase)
 │       └── *.mdx

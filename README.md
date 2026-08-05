@@ -84,9 +84,11 @@ darktheDE-web/
 ├── docs/
 │   ├── decisions/         # ADRs (architecture decision records)
 │   ├── specs/             # feature specs (one file per non-trivial feature)
-│   └── process/           # workflow, UI checklist, implementation log
+│   ├── process/           # workflow, UI checklist, implementation log
+│   ├── supabase/          # migration SQL + setup notes
+│   └── deploy/            # manual deployment runbook
 ├── content/
-│   └── posts/             # MDX blog posts (git-versioned, server-rendered)
+│   └── posts/             # optional static MDX posts (blog primarily reads Supabase)
 ├── public/
 │   ├── fonts/             # self-hosted Monaspace Neon variable font
 │   └── assets/            # images, favicon (Git LFS tracked)
@@ -111,7 +113,7 @@ Two paths, same outcome:
 
 ## Deploy
 
-Vercel + GitHub: push to `main`, Vercel builds automatically. Custom domain `darkthede.github.io` is wired through Vercel DNS.
+Vercel + GitHub: push to `main`, Vercel builds automatically. Manual account/env setup is documented in [docs/deploy/README.md](docs/deploy/README.md). Custom domain `darkthede.github.io` is wired through Vercel DNS.
 
 ```bash
 # Manual deploy (if not using GitHub integration)
