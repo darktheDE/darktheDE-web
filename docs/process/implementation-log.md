@@ -18,6 +18,7 @@ Format: `YYYY-MM-DD-session-N-<topic>.md` linking to the session-or-equivalent. 
 | 2026-08-05 | MVP clone (5 sections) + foundation cleanup | spec 001, AGENTS.md |
 | 2026-08-05 | UI review + a11y hardening | spec 002, ADR-0006 |
 | 2026-08-05 | Docs infrastructure + websearch stack re-audit + dep bumps | docs/process/*, ADR-0005 (re-audit), AGENTS.md, CLAUDE.md, README |
+| 2026-08-05 | Phases 7-6-8: Supabase + Blog + Admin (full MVP spec 001) | spec 001 (phases 6-8 shipped) |
 
 ## Entries
 
@@ -119,7 +120,40 @@ Open follow-ups (next session):
 - Lighthouse run against deployed URL (verify next/image savings + reduced-motion behavior)
 - React Compiler enablement (`reactCompiler: true` in `next.config.ts`)
 - Confirm `prefers-reduced-motion` flow visually (toggle OS setting, navigate site)
-- Plan blog + admin surfaces (spec 001 phases 6-8)
+- Plan blog + admin surfaces (spec 001 phases 6-8) — **DONE in this entry**
+
+### 2026-08-05 — Phases 7-6-8: Supabase + Blog + Admin (full MVP spec 001)
+
+Shipped the remaining 3 phases of spec 001 in one batch (phases 7 → 6 → 8, in dependency order).
+
+**Phase 7 — Supabase setup:**
+- `src/lib/supabase/server.ts` — server client (reads auth from cookies, async per Next 15+ pattern)
+- `src/lib/supabase/client.ts` — browser client (`"use client"`)
+- `src/lib/supabase/middleware.ts` — session refresh + admin route protection
+- `src/middleware.ts` — root middleware wiring `updateSession`
+- `docs/supabase/001-posts.sql` — full migration (posts table, indexes, RLS policies, updated_at trigger, seed comment)
+- `next.config.ts` — added `images.remotePatterns` for Cloudinary + Supabase Storage
+
+**Phase 6 — Blog:**
+- `src/app/blog/page.tsx` — RSC blog index, reads published posts from Supabase
+- `src/app/blog/[slug]/page.tsx` — RSC individual post, renders MDX via `next-mdx-remote/rsc`
+- `src/lib/mdx-components.tsx` — custom MDX components (links, code, headings, blockquote, images)
+- `src/app/globals.css` — added `.prose` blog spacing styles
+
+**Phase 8 — Admin + Cloudinary:**
+- `src/app/admin/page.tsx` — auth-gated admin page (server component, checks `getUser()`)
+- `src/components/PostEditor.tsx` — client component with `@uiw/react-md-editor`, list/create/edit/delete/publish views
+- `src/lib/actions.ts` — Server Actions for CRUD (`createPost`, `updatePost`, `deletePost`, `publishPost`)
+- `src/lib/cloudinary.ts` — HMAC-signed upload URL generation (browser-direct to Cloudinary)
+- `src/app/api/upload/route.ts` — API route returning signed params
+- `src/app/api/auth/signout/route.ts` — sign-out redirect
+
+**npm packages added:**
+- `@supabase/ssr` + `@supabase/supabase-js` (Phase 7)
+- `next-mdx-remote` + `@mdx-js/mdx` (Phase 6)
+- `@uiw/react-md-editor` (Phase 8)
+
+**`npm run verify` green.** All spec 001 phases (1-8) shipped. Deploy phase remains.
 
 ## Conventions
 

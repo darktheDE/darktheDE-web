@@ -1,6 +1,6 @@
 # 001. Portfolio + Blog rebuild from scratch
 
-- **Status:** Active
+- **Status:** Active (phases 1-8 shipped; deploy pending)
 - **Author:** Kien Hung
 - **Created:** 2026-08-04
 - **Last updated:** 2026-08-05

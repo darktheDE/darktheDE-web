@@ -110,3 +110,19 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Blog prose — scoped to .prose inside blog post pages.
+   mdx-components.tsx maps <pre>, <code>, etc. with component-level tokens;
+   this layer adds prose-level spacing. */
+.prose pre {
+  margin: 1.5rem 0;
+}
+.prose blockquote {
+  margin: 1.5rem 0;
+}
+.prose img {
+  margin: 1.5rem auto;
+}
+.prose hr {
+  border-color: var(--color-rule);
+}

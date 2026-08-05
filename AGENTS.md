@@ -52,7 +52,7 @@ darktheDE-web/
 │       ├── implementation-log.md
 │       └── templates/
 ├── content/
-│   └── posts/                   # blog posts (MDX, git-versioned)
+│   └── posts/                   # MDX blog posts (optional — blog reads from Supabase)
 │       └── *.mdx
 ├── public/
 │   ├── fonts/                   # self-hosted Monaspace Neon
@@ -106,7 +106,7 @@ If a task changes UI, also screenshot the result.
 - **Dark-only.** No light mode. Don't add `dark:` prefixes or theme toggles.
 - **Public-only site.** No AI agent context block, no CV.tex prompts, no internal-only sections. See [ADR-0006](docs/decisions/0006-public-only-policy.md).
 - **Plain English copy.** No superlatives, no "production-grade" alone, no jargon dumps. One sentence per claim.
-- **Monaspace Neon is self-hosted.** Variable font file at `public/fonts/MonaspaceNeonVar.woff2`. Don't replace with system mono. (Pending CDN fix — see TODO in `globals.css`.)
+- **Monaspace Neon is self-hosted.** Variable font file at `public/fonts/MonaspaceNeonVar.woff2`. Don't replace with system mono. (Currently using OS mono fallback — see `globals.css` TODO.)
 - **No raw hex in components.** Use Tailwind tokens (`text-accent`, `bg-panel`, `border-rule`).
 - **Display font reserved for H1/H2/big numbers.** Body text = Inter.
 - **Free tier awareness.** Verified 2026-08-05: Supabase Free = 500 MB DB / 5 GB egress / 50K MAU / 1 GB file storage (no mid-tier — $25/mo Pro if exceeded); Cloudinary Free = 25 credits (1 credit = 1 GB storage OR 1 GB bandwidth OR 1K transforms); Vercel Hobby = 100 GB bandwidth (personal/non-commercial only). Don't propose changes that blow these.
