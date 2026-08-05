@@ -1,10 +1,10 @@
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 /**
- * Conditional className helper. Tiny wrapper around clsx + tailwind-merge
- * so callers don't need to remember which utility to import.
- *
- * For now just string concatenation — we'll add clsx/tailwind-merge
- * once we have a real need (e.g. component variants).
+ * Combine clsx (conditional classes) + tailwind-merge (deduplicate conflicting
+ * Tailwind utilities). Standard 2026 helper.
  */
-export function cn(...classes: Array<string | false | null | undefined>): string {
-  return classes.filter(Boolean).join(" ");
+export function cn(...inputs: ClassValue[]): string {
+  return twMerge(clsx(inputs));
 }

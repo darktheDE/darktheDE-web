@@ -1,0 +1,10 @@
+# Git LFS — keep large binary assets out of the main git history.
+# Set up via `git lfs install` (done 2026-08-05).
+# Storage budget: 12 MB public/assets + 340 KB PDFs as of 2026-08-05.
+# LFS gives us 1 GB free on GitHub, so we're well under for a long time.
+
+# Portfolio assets — images for Hero carousel, project covers, certifications, RTIC photo.
+public/assets/** filter=lfs diff=lfs merge=lfs -text
+
+# CV PDFs served as static downloads from the public root.
+public/*.pdf filter=lfs diff=lfs merge=lfs -text

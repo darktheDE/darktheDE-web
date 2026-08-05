@@ -2,6 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-04
+- **Last verified:** 2026-08-05 via vercel.com/pricing + vercel.com/docs/plans/hobby
 - **Deciders:** Kien Hung
 
 ## Context and Problem Statement
@@ -19,11 +20,14 @@ We picked Next.js 16.3 (ADR 0001). Where to deploy it? Old site is on GitHub Pag
 
 **Chosen option: A (Vercel)**, because Vercel is the canonical Next.js host (same company, same team, first-class integration). Hobby free tier (100 GB transfer, 1M function invocations, 5K image transforms/mo) is enough for a personal portfolio. Custom domain maps to `darkthede.github.io` via CNAME.
 
+**Hobby constraints (verified 2026-08-05):** Free, no expiry, but **non-commercial / personal use only**. Custom domains are supported (DNS config). If portfolio ever monetizes (sponsorships, paid content), we must migrate to Pro ($20/mo/seat) or another host.
+
 ### Consequences
 
 - **Good:** `git push` to main → preview URL → production deploy. Zero config.
 - **Good:** Preview URLs per PR — perfect for design review.
 - **Good:** Free tier includes 5K image transforms (covers Vercel-served images if we ever add some).
+- **Good:** Vercel Analytics included free, zero-config.
 - **Bad:** Hobby is for non-commercial / personal use only (matches our case).
 - **Bad:** Vercel-specific features (Edge Middleware, Image Optimization) can create lock-in. Mitigation: keep Next.js usage portable (no Vercel-only APIs except where optional).
 - **Risks:** Vercel could tighten Hobby limits. Mitigation: Cloudflare Pages is a 30-min migration if needed (Next.js works on both).

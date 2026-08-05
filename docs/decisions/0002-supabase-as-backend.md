@@ -2,6 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-04
+- **Last verified:** 2026-08-05 via `npm view @supabase/ssr` (0.12.4, modified 2026-07-28) and supabase.com/pricing
 - **Deciders:** Kien Hung
 
 ## Context and Problem Statement
@@ -28,6 +29,7 @@ Options: self-host Postgres (Heroku, Railway, Fly.io), Neon (serverless Postgres
 - **Good:** Edge Functions available if we need a webhook (e.g., on publish → trigger ISR revalidation).
 - **Bad:** Free tier is 5 GB egress / month — modest. Need to monitor.
 - **Bad:** Free tier has NO image transformations (costs compute on Pro $25/mo). That's why we chose Cloudinary separately.
+- **Bad (verified 2026-08-05):** No mid-tier between Free and Pro ($25/mo). Exceeding free limits = jump straight to Pro per-project. Personal portfolio highly unlikely to hit 5 GB egress / 50K MAU; 500 MB DB is the binding constraint for blog content.
 - **Risks:** Vendor lock-in. Mitigation: keep schema simple, document `posts` table DDL in this repo, dump periodically.
 - **Risks:** Free-tier limits could change. Mitigation: monitor with Vercel Analytics + Supabase dashboard; migrate to Neon if needed (Postgres-compatible).
 

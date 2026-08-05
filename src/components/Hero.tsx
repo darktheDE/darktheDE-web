@@ -1,105 +1,81 @@
-import Link from "next/link";
-import { SectionEyebrow } from "@/components/SectionEyebrow";
-import { PERSONAL } from "@/data/personal";
+"use client";
 
-/**
- * Hero — portfolio landing section.
- *
- * Layout (from AGENTS.md file layout → design notes):
- *   - serif thesis (Fraunces, 56-72px desktop)
- *   - mono eyebrow above thesis
- *   - 2 plain sentences below thesis (Inter)
- *   - 2 status cards (mono labels, plain notes)
- *
- * Constraints:
- *   - Dark-only, no light-mode toggle (see CLAUDE.md).
- *   - No marketing copy. (See AGENTS.md.)
- *   - No raw hex. Use Tailwind tokens: text-accent, bg-panel, border-rule, font-mono.
- */
+import { motion as Motion } from "framer-motion";
+import { FiArrowRight, FiBookOpen, FiDownload } from "react-icons/fi";
+import { PERSONAL_INFO, SOCIAL_LINKS, ASSETS } from "@/data/config";
+
+const focusAreas = ["Spark", "Airflow", "Lakehouse", "Backend", "AI Agents"];
+
 export function Hero() {
   return (
-    <section className="relative px-6 pt-24 pb-20 md:pt-32 md:pb-28">
-      <div className="mx-auto max-w-[920px]">
-        <SectionEyebrow>portfolio · 2026</SectionEyebrow>
+    <section className="relative min-h-[92vh] overflow-hidden px-4 pt-28 sm:px-6 lg:px-8">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent" />
 
-        <h1 className="mt-6 font-serif text-[44px] font-light leading-[1.05] tracking-[-0.01em] text-text md:text-[64px]">
-          {PERSONAL.thesis}
-        </h1>
+      <Motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="relative z-10 mx-auto max-w-7xl lg:min-h-[calc(92vh-7rem)] flex flex-col justify-center py-12"
+      >
+        <div className="max-w-3xl">
+          <p className="font-mono text-sm text-mute sm:text-base">
+            Hi, I&apos;m {PERSONAL_INFO.name}
+          </p>
+          <h1
+            aria-label={`${PERSONAL_INFO.nickname} builds data systems`}
+            className="mt-3 max-w-4xl text-4xl font-black leading-[1.03] tracking-normal text-text sm:text-6xl lg:text-7xl"
+          >
+            {PERSONAL_INFO.nickname}
+            <span
+              aria-hidden="true"
+              className="block bg-gradient-to-r from-accent via-sky-300 to-accent bg-clip-text text-transparent"
+            >
+              builds data systems.
+            </span>
+          </h1>
 
-        <p className="mt-6 max-w-[640px] font-sans text-[17px] leading-[1.6] text-mute md:text-[18px]">
-          {PERSONAL.subtitle}
-        </p>
+          <p className="mt-6 max-w-2xl text-base leading-8 text-mute sm:text-lg">
+            {PERSONAL_INFO.tagline} Currently sharpening lakehouse
+            architecture, big data pipelines, backend services, and agentic AI
+            workflows.
+          </p>
 
-        <div className="mt-12 grid gap-3 sm:grid-cols-2 sm:gap-4">
-          <StatusCard
-            label={PERSONAL.status.primary.label}
-            note={PERSONAL.status.primary.note}
-            accent="accent"
-          />
-          <StatusCard
-            label={PERSONAL.status.secondary.label}
-            note={PERSONAL.status.secondary.note}
-            accent="warn"
-          />
+          <div className="mt-7 flex flex-wrap gap-2">
+            {focusAreas.map((area) => (
+              <span
+                key={area}
+                className="border border-rule bg-panel/40 px-3 py-1.5 text-xs font-medium text-mute"
+              >
+                {area}
+              </span>
+            ))}
+          </div>
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="#projects"
+              className="inline-flex items-center justify-center gap-2 bg-accent px-6 py-3 font-semibold text-ink shadow-lg shadow-accent/20 transition-all hover:bg-accent-dim hover:shadow-accent/30"
+            >
+              View Data Projects <FiArrowRight className="shrink-0" />
+            </a>
+            <a
+              href={ASSETS.cvData}
+              download
+              className="inline-flex items-center justify-center gap-2 border border-accent/30 bg-surface/70 px-6 py-3 font-semibold text-accent backdrop-blur-md transition-all hover:border-accent hover:bg-accent/10"
+            >
+              <FiDownload className="shrink-0" /> Download Data CV
+            </a>
+            <a
+              href={SOCIAL_LINKS.blog}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center gap-2 border border-rule bg-panel/30 px-6 py-3 font-semibold text-mute backdrop-blur-md transition-all hover:border-rule hover:text-text"
+            >
+              <FiBookOpen className="shrink-0" /> Blog
+            </a>
+          </div>
         </div>
-
-        <div className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[12px] text-mute">
-          <Link
-            href={PERSONAL.socials.github}
-            className="transition-colors hover:text-accent"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            github
-          </Link>
-          <span aria-hidden="true" className="text-rule">
-            ·
-          </span>
-          <Link
-            href={PERSONAL.socials.linkedin}
-            className="transition-colors hover:text-accent"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            linkedin
-          </Link>
-          <span aria-hidden="true" className="text-rule">
-            ·
-          </span>
-          <Link
-            href={PERSONAL.socials.email}
-            className="transition-colors hover:text-accent"
-          >
-            email
-          </Link>
-        </div>
-      </div>
+      </Motion.div>
     </section>
-  );
-}
-
-function StatusCard({
-  label,
-  note,
-  accent,
-}: {
-  label: string;
-  note: string;
-  accent: "accent" | "warn";
-}) {
-  const dotClass = accent === "accent" ? "bg-accent" : "bg-warn";
-  return (
-    <div className="border border-rule bg-panel/60 px-5 py-4">
-      <div className="flex items-center gap-2">
-        <span
-          aria-hidden="true"
-          className={`inline-block h-1.5 w-1.5 rounded-full ${dotClass}`}
-        />
-        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-mute">
-          {label}
-        </span>
-      </div>
-      <p className="mt-2 text-[14px] leading-[1.5] text-text">{note}</p>
-    </div>
   );
 }

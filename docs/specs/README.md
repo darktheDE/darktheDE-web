@@ -39,3 +39,4 @@ Move between states by updating the Status field at the top.
 | # | Title | Status |
 |---|---|---|
 | [001](001-portfolio-rebuild.md) | Portfolio + Blog rebuild from scratch | Active |
+| [002](002-ui-review-a11y-hardening.md) | UI review + accessibility hardening (2026-08-05) | Done |

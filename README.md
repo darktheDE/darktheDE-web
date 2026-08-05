@@ -16,11 +16,13 @@
 
 A single Next.js 16.3 codebase hosts three surfaces:
 
-- **`/`** — Portfolio home. Hero, stack, projects (Medallion diagram), RTIC, certifications.
+- **`/`** — Portfolio home. Hero, BentoGrid (About + Signal + Stack + Projects), RTIC, Certifications. (Blog + Admin surfaces planned, see [spec 001](docs/specs/001-portfolio-rebuild.md).)
 - **`/blog`** — MDX blog index, sorted by `published_at` desc. Server-rendered for SEO.
 - **`/admin`** — Supabase Auth-gated post editor (CRUD) backed by Server Actions.
 
 Design language: dark-only, "data engineer's notebook" — single 1px vertical rule on the left of the page (`page-trace`), no gradients, no glow.
+
+**Status (2026-08-05):** MVP shipped (portfolio home + 5 sections). Blog + admin surfaces tracked in [spec 001](docs/specs/001-portfolio-rebuild.md). See [implementation log](docs/process/implementation-log.md) for the session-by-session build record.
 
 ## Stack
 
@@ -81,20 +83,22 @@ darktheDE-web/
 ├── README.md              # this file
 ├── docs/
 │   ├── decisions/         # ADRs (architecture decision records)
-│   └── specs/             # feature specs (one file per non-trivial feature)
+│   ├── specs/             # feature specs (one file per non-trivial feature)
+│   └── process/           # workflow, UI checklist, implementation log
 ├── content/
 │   └── posts/             # MDX blog posts (git-versioned, server-rendered)
 ├── public/
 │   ├── fonts/             # self-hosted Monaspace Neon variable font
-│   └── assets/            # images, favicon
+│   └── assets/            # images, favicon (Git LFS tracked)
 └── src/
     ├── app/               # Next.js App Router
-    │   ├── layout.tsx     # root layout: fonts, page-trace, skip-link
+    │   ├── layout.tsx     # root layout: fonts, page-trace, skip-link, Providers
+    │   ├── Providers.tsx  # MotionConfig wrapper (reduced-motion)
     │   ├── page.tsx       # portfolio home
     │   ├── blog/          # /blog index + /blog/[slug] post
     │   └── admin/         # /admin (Supabase Auth gated)
-    ├── components/        # React components (Hero, PipelineLog, …)
-    ├── lib/               # shared utilities (supabase clients, cn, …)
+    ├── components/        # React components (Hero, BentoGrid, …)
+    ├── lib/               # shared utilities (cn, useFocusTrap, …)
     └── styles/            # global CSS + Tailwind tokens
 ```
 
@@ -122,6 +126,11 @@ vercel deploy --prod
 - **No raw hex in components.** Use Tailwind tokens (`text-accent`, `bg-panel`, `border-rule`).
 - **Display font (Fraunces) is for H1/H2/big numbers only.** Body text uses Inter.
 - **Small, frequent commits.** Conventional Commits (`feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `test:`).
+- **All z-index values use theme tokens** (`style={{ zIndex: 'var(--z-lightbox)' }}`). Prevents nav-over-lightbox bugs.
+- **All lightboxes are accessible modals** — focus trap, `role="dialog"`, escape closes.
+- **All images use `next/image`.** Raw `<img>` is a review-blocker.
+
+Full conventions: [`AGENTS.md`](AGENTS.md) and [`CLAUDE.md`](CLAUDE.md). Process docs: [`docs/process/`](docs/process/README.md).
 
 Full conventions: [`AGENTS.md`](AGENTS.md) and [`CLAUDE.md`](CLAUDE.md).
 

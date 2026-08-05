@@ -16,6 +16,7 @@
 - **Codebase exploration / search:** use the `Explore` subagent — don't burn main context on Grep/Glob across large trees.
 - **Plan / architecture design:** use the `Plan` subagent for non-trivial implementation plans.
 - **Code review:** `/review` slash command after non-trivial changes.
+- **Compressed output for routine work:** `cavecrew-investigator` (locate), `cavecrew-builder` (1-2 file edit), `cavecrew-reviewer` (diff review). Per [docs/process/workflow.md](docs/process/workflow.md) "When to delegate" section.
 - Avoid spawning subagents for single-line edits or trivial questions.
 
 ## Working style
@@ -34,10 +35,11 @@
 
 ## Workflow rules
 
-1. **Spec before code** for any feature touching > 3 files or any irreversible decision.
+1. **Spec before code** for any feature touching > 3 files or any irreversible decision. See [docs/process/workflow.md](docs/process/workflow.md) for the canonical loop.
 2. **ADR before stack change.** Don't switch DB, framework, or host without an ADR in `docs/decisions/`.
 3. **Verify before done.** `npm run verify` green = claim done.
 4. **No scope creep.** Don't add features the user didn't ask for in this turn. Note them as suggestions at the end instead.
+5. **Log after ship.** Append a dated entry to [docs/process/implementation-log.md](docs/process/implementation-log.md) after each non-trivial batch (≥ 3 files or any decision).
 
 ## Things to NEVER do in this repo
 

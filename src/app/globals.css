@@ -11,15 +11,46 @@
   --color-panel: #11161f;
   --color-panel-light: #19222f;
   --color-rule: #1f2a3a;
-  --color-mute: #6e7b8c;
+  --color-mute: #8a99ad;
   --color-text: #e6edf3;
   --color-accent: #7cffb2;
   --color-accent-dim: #3faa73;
   --color-warn: #ff7a59;
 
+  /* MVP-compat tokens — alias old Vite-portfolio Tailwind v3 names onto our
+     dark palette. Lets the cloned components render without raw hex.
+     Kept narrow on purpose; new components should use ink/panel/rule/accent. */
+  --color-background: var(--color-ink);
+  --color-card: var(--color-panel);
+  --color-surface: var(--color-panel-light);
+  --color-primary: var(--color-accent);
+  --color-text-light: var(--color-text);
+}
+
+:root {
+  /* Z-index scale — single source of truth. Stops nav-over-lightbox bugs. */
+  --z-nav: 50;
+  --z-lightbox: 60;
+  --z-skiplink: 100;
+}
+
+@theme {
+  /* Z-index scale for Tailwind utilities if needed */
+  --z-index-nav: 50;
+  --z-index-lightbox: 60;
+  --z-index-skiplink: 100;
+
   /* Fonts (CSS vars set by layout.tsx via next/font) */
   --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
-  /* Monaspace Neon self-host pending — TODO: add /public/fonts/MonaspaceNeonVar.woff2 */
+  /* Monaspace Neon self-host pending.
+     TODO: download MonaspaceNeonVar.woff2 from
+       https://github.com/githubnext/monaspace/releases (latest variable webfont zip, Neon variant)
+       and place it at /public/fonts/MonaspaceNeonVar.woff2.
+     Until then, layout.tsx falls back to ui-monospace / JetBrains Mono via next/font/local? No —
+     we use the OS mono fallback chain below. Replace this line with:
+       --font-mono: var(--font-monaspace-neon), ui-monospace, monospace;
+     after wiring next/font/local in layout.tsx.
+  */
   --font-mono: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
@@ -60,9 +91,22 @@ body {
   color: var(--color-accent);
   font-family: var(--font-mono);
   font-size: 12px;
-  z-index: 100;
+  z-index: var(--z-skiplink);
 }
 .skip-link:focus {
   left: 12px;
   top: 12px;
+}
+
+/* Respect prefers-reduced-motion: kill continuous transforms (carousel,
+   hover scale, gradient sweeps). framer MotionConfig handles its own. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

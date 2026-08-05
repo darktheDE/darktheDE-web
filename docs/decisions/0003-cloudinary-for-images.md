@@ -2,6 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-04
+- **Last verified:** 2026-08-05 via cloudinary.com/pricing + cloudinary.com/documentation/developer_onboarding_faq_credits
 - **Deciders:** Kien Hung
 
 ## Context and Problem Statement
@@ -21,6 +22,8 @@ Should we (a) pay for Supabase Pro, (b) use Supabase Storage and pre-process ima
 ## Decision Outcome
 
 **Chosen option: A (Cloudinary)**, because 25 credits/mo on free tier buys us 25 GB managed storage OR 25 GB bandwidth OR 25K transforms — and we can mix and match. URL-based transform API (`f_auto,q_auto,w_800`) means responsive images with zero build-time processing.
+
+**Credit model (verified 2026-08-05):** 1 credit = 1 GB storage OR 1 GB bandwidth OR 1,000 transformations. The "25 credits" cap applies regardless of which resource type you consume. For a personal portfolio with ~10 images/post and 5 posts/mo, expect mostly transforms to count (URL-based responsive variants) — well within 25K transforms/mo.
 
 ### Consequences
 

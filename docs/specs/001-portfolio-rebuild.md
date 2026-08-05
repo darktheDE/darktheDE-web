@@ -3,8 +3,8 @@
 - **Status:** Active
 - **Author:** Kien Hung
 - **Created:** 2026-08-04
-- **Last updated:** 2026-08-04
-- **Stack verified:** `next@16.3.0`, `tailwindcss@4.3.3`, `@uiw/react-md-editor@4.1.1`, `react-markdown@10.1.0`, `@mdx-js/mdx@3.1.1`
+- **Last updated:** 2026-08-05
+- **Stack verified:** `next@16.3.0` (npm 2026-08-04), `tailwindcss@4.3.3` (npm 2026-08-04), `@tailwindcss/postcss@4.3.3`, `@next/mdx@16.3.0` (npm 2026-08-04), `@uiw/react-md-editor@4.1.1` (npm 2026-05-21), `react-markdown@10.1.0` (npm 2025-03-07, stable), `@mdx-js/mdx@3.1.1`, `@supabase/ssr@0.12.4` (npm 2026-07-28)
 
 ## Summary
 
@@ -159,6 +159,8 @@ Specific observable behaviors:
 - **Q: First blog post content?** — likely a "Why I rebuilt my portfolio" retrospective. Will write after MVP ships, not before.
 - **Q: How to seed the admin user in dev?** — Supabase dashboard manual create for now. Could add a seed script in v1.1.
 - **Q: MDX plugins to enable?** — start with: `remark-gfm`, `remark-frontmatter`, `@shikijs/rehype` (or `rehype-pretty-code`), `remark-mermaid`. Add others only if needed.
+- **Q (added 2026-08-05):** Is `@uiw/react-md-editor@4.1.1` the right MD editor, or should we go simpler? Last npm release was 2026-05-21 — package is maintained but slow-moving. Alternatives considered: (a) `<textarea>` + manual Markdown preview tab (zero deps, full control), (b) `react-markdown` + a thin toolbar wrapper, (c) `@uiw/react-md-editor` as-is. Decision pending — see ADR `0005-stack-version-verification-2026-08-05.md` for verification trail. Default plan: ship with `@uiw/react-md-editor@4.1.1` per original spec; revisit after first admin session if the UX is clunky.
+- **Q (added 2026-08-05):** Lazy-load via `next/dynamic` for RTIC + Certifications — is this still best practice in Next.js 16? Both sections are static data. Lazy-load provides marginal perf benefit for below-the-fold content but adds Suspense boundary complexity. Decision: keep lazy-load for now (matches spec), but re-evaluate after Lighthouse run on real traffic.
 
 ## Implementation Plan
 

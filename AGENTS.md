@@ -13,15 +13,15 @@ Personal portfolio + blog for Kien Hung (darktheDE), a Data Engineering student 
 
 ## Stack (locked, do not change without ADR)
 
-- **Framework:** Next.js 16.3 (App Router, TypeScript) — Turbopack default
-- **Styling:** Tailwind CSS 4.3.3 — CSS-first config (`@theme` in globals.css), NOT tailwind.config.js
+- **Framework:** Next.js 16.3.0 (App Router, TypeScript) — Turbopack default (verified 2026-08-05: latest stable)
+- **Styling:** Tailwind CSS 4.3.3 — CSS-first config (`@theme` in globals.css), NOT tailwind.config.js (verified 2026-08-05: latest minor `4.x`)
 - **Backend / DB / Auth:** Supabase (Postgres + Auth + RLS + Edge Functions)
 - **Image hosting:** Cloudinary (free tier)
 - **Hosting:** Vercel (Hobby plan) — DNS points to `darkthede.github.io`
-- **Markdown:** `@next/mdx` for content, `react-markdown` for inline rendering
+- **Markdown:** `@next/mdx@16.3.0` for content, `react-markdown@10.1.0` for inline rendering (verified 2026-08-05; `react-markdown` is stable, not abandoned — last release 2025-03)
 - **Fonts:** Fraunces (display, Google Fonts) + Monaspace Neon (mono, self-hosted at `public/fonts/`) + Inter (body)
 
-Decisions behind these choices: `docs/decisions/0001-*.md` through `0004-*.md`.
+Decisions behind these choices: `docs/decisions/0001-*.md` through `0006-*.md`.
 
 ## Conventions
 
@@ -41,10 +41,16 @@ darktheDE-web/
 │   │   ├── README.md
 │   │   ├── templates/adr.md
 │   │   └── NNNN-<slug>.md
-│   └── specs/                   # feature specs (one file per non-trivial feature)
+│   ├── specs/                   # feature specs (one file per non-trivial feature)
+│   │   ├── README.md
+│   │   ├── templates/feature.md
+│   │   └── NNN-<slug>.md
+│   └── process/                 # how we work (workflow, checklists, history)
 │       ├── README.md
-│       ├── templates/feature.md
-│       └── NNN-<slug>.md
+│       ├── workflow.md
+│       ├── ui-review-checklist.md
+│       ├── implementation-log.md
+│       └── templates/
 ├── content/
 │   └── posts/                   # blog posts (MDX, git-versioned)
 │       └── *.mdx
@@ -98,17 +104,30 @@ If a task changes UI, also screenshot the result.
 ## Gotchas
 
 - **Dark-only.** No light mode. Don't add `dark:` prefixes or theme toggles.
-- **Public-only site.** No AI agent context block, no CV.tex prompts, no internal-only sections. See `docs/decisions/0005-public-only.md` (TBD).
+- **Public-only site.** No AI agent context block, no CV.tex prompts, no internal-only sections. See [ADR-0006](docs/decisions/0006-public-only-policy.md).
 - **Plain English copy.** No superlatives, no "production-grade" alone, no jargon dumps. One sentence per claim.
-- **Monaspace Neon is self-hosted.** Variable font file at `public/fonts/MonaspaceNeonVar.woff2`. Don't replace with system mono.
+- **Monaspace Neon is self-hosted.** Variable font file at `public/fonts/MonaspaceNeonVar.woff2`. Don't replace with system mono. (Pending CDN fix — see TODO in `globals.css`.)
 - **No raw hex in components.** Use Tailwind tokens (`text-accent`, `bg-panel`, `border-rule`).
 - **Display font reserved for H1/H2/big numbers.** Body text = Inter.
-- **Free tier awareness.** Supabase 500 MB DB / 5 GB egress; Cloudinary 25 credits/mo; Vercel Hobby 100 GB transfer. Don't propose changes that blow these.
+- **Free tier awareness.** Verified 2026-08-05: Supabase Free = 500 MB DB / 5 GB egress / 50K MAU / 1 GB file storage (no mid-tier — $25/mo Pro if exceeded); Cloudinary Free = 25 credits (1 credit = 1 GB storage OR 1 GB bandwidth OR 1K transforms); Vercel Hobby = 100 GB bandwidth (personal/non-commercial only). Don't propose changes that blow these.
+- **All `z-*` values use theme tokens via inline `style={{ zIndex: 'var(--z-lightbox)' }}`** — Tailwind v4 does NOT generate utilities from arbitrary values containing CSS variables (`z-[var(--z-token)]` silently fails in production build). Token table in `globals.css`. Prevents nav-over-lightbox bugs.
+- **All interactive images need `next/image` + dynamic alt** (no raw `<img>`). Lazy / decorative images: `alt=""`. Profile carousel: alt reflects current frame.
+- **All lightboxes are accessible modals** — `role="dialog"`, `aria-modal="true"`, `aria-label`, focus trap via `useFocusTrap` hook. Escape closes.
+- **Respect `prefers-reduced-motion`** — `MotionConfig reducedMotion="user"` at root (via `Providers`) gates framer animations; `globals.css` blanket rule handles CSS transitions.
 
 ## When to write a spec vs vibe code
 
 - **Vibe code:** typo, copy tweak, single-component styling, 1-2 file changes.
-- **Write `/docs/specs/NNN-<slug>.md` first:** new feature, new route, schema change, anything that touches more than 3 files or that you'd want to think twice about.
+- **Write `docs/specs/NNN-<slug>.md` first:** new feature, new route, schema change, anything that touches more than 3 files or that you'd want to think twice about.
+
+## Process & workflow
+
+For non-trivial work, follow the canonical loop in [docs/process/workflow.md](docs/process/workflow.md). Highlights:
+
+- Spec first, then implement, then verify, then log.
+- `npm run verify` green before "done".
+- Append to [docs/process/implementation-log.md](docs/process/implementation-log.md) after each non-trivial batch.
+- UI changes: run the [docs/process/ui-review-checklist.md](docs/process/ui-review-checklist.md) before claiming done.
 
 ## When to write an ADR
 

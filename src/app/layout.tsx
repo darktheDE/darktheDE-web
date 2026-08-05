@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
+import { Providers } from "./Providers";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -17,9 +18,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Kien Hung (darktheDE) — Data Engineer",
+  title: "Đỗ Kiến Hưng (darktheDE) — Data Engineer",
   description:
-    "Data Engineering student at HCM-UTE. I build data systems — clean schemas, working pipelines, small docs that explain the big picture.",
+    "Third-year Data Engineering student at HCM-UTE. I build reliable data systems from raw events to AI-ready products.",
+  icons: {
+    icon: "/assets/profile-favicon.png",
+  },
 };
 
 export default function RootLayout({
@@ -37,7 +41,9 @@ export default function RootLayout({
           Skip to main content
         </a>
         <div className="page-trace" aria-hidden="true" />
-        <main id="main-content">{children}</main>
+        <Providers>
+          <main id="main-content">{children}</main>
+        </Providers>
       </body>
     </html>
   );
