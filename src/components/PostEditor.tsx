@@ -41,6 +41,8 @@ export function PostEditor({ posts }: PostEditorProps) {
   const [coverUrl, setCoverUrl] = useState("");
   const [bodyMdx, setBodyMdx] = useState("");
   const [status, setStatus] = useState<"draft" | "published">("draft");
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
   function resetForm() {
     setTitle("");
@@ -49,6 +51,51 @@ export function PostEditor({ posts }: PostEditorProps) {
     setCoverUrl("");
     setBodyMdx("");
     setStatus("draft");
+    setUploadError(null);
+  }
+
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setUploadError(null);
+
+    try {
+      const res = await fetch("/api/upload", { method: "POST" });
+      if (!res.ok) {
+        throw new Error("Failed to get upload signature from server.");
+      }
+      const params = await res.json();
+
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("api_key", params.api_key);
+      formData.append("timestamp", params.timestamp.toString());
+      formData.append("signature", params.signature);
+      formData.append("folder", params.folder);
+
+      const cloudRes = await fetch(
+        `https://api.cloudinary.com/v1_1/${params.cloud_name}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!cloudRes.ok) {
+        const errData = await cloudRes.json();
+        throw new Error(errData.error?.message || "Cloudinary upload failed.");
+      }
+
+      const cloudData = await cloudRes.json();
+      setCoverUrl(cloudData.secure_url);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Upload failed.";
+      setUploadError(msg);
+    } finally {
+      setUploading(false);
+    }
   }
 
   function startCreate() {
@@ -236,15 +283,35 @@ export function PostEditor({ posts }: PostEditorProps) {
 
       <div>
         <label className="mb-1 block font-mono text-xs text-mute">
-          Cover URL
+          Cover Image (Cloudinary)
         </label>
-        <input
-          type="url"
-          value={coverUrl}
-          onChange={(e) => setCoverUrl(e.target.value)}
-          placeholder="https://res.cloudinary.com/..."
-          className="w-full border border-rule bg-panel/30 px-3 py-2 text-sm text-text outline-none focus:border-accent/50"
-        />
+        <div className="flex gap-2">
+          <input
+            type="url"
+            value={coverUrl}
+            onChange={(e) => setCoverUrl(e.target.value)}
+            placeholder="https://res.cloudinary.com/..."
+            className="w-full border border-rule bg-panel/30 px-3 py-2 text-sm text-text outline-none focus:border-accent/50"
+          />
+          <label className="cursor-pointer shrink-0 border border-accent/40 bg-accent/10 px-4 py-2 font-mono text-xs uppercase tracking-wider text-accent transition-colors hover:bg-accent hover:text-ink flex items-center justify-center">
+            {uploading ? "Uploading..." : "Upload File"}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              disabled={uploading}
+              className="hidden"
+            />
+          </label>
+        </div>
+        {uploadError && (
+          <p className="mt-1 text-xs text-warn font-mono">{uploadError}</p>
+        )}
+        {coverUrl && (
+          <p className="mt-1 text-xs text-accent font-mono">
+            ✓ Uploaded: <a href={coverUrl} target="_blank" rel="noreferrer" className="underline">{coverUrl}</a>
+          </p>
+        )}
       </div>
 
       <div>
