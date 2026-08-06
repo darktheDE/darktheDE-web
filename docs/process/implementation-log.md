@@ -186,6 +186,7 @@ Resolved auth UX gap and database permission issues during initial post creation
 - **Database Table GRANTs (`docs/supabase/001-posts.sql`, `docs/deploy/supabase-setup.md`):** Added explicit `GRANT USAGE ON SCHEMA public` and `GRANT ALL ON TABLE posts TO authenticated` / `GRANT SELECT ON TABLE posts TO anon` statements to eliminate Postgres `permission denied for table posts` errors on initial write.
 - **Header & Hero Blog Links (`src/components/Navbar.tsx`, `src/components/Hero.tsx`, `src/data/config.ts`):** Updated `SOCIAL_LINKS.blog` to `/blog`. Added Blog link & icon (`FiBookOpen`) to desktop/mobile Navbar and Hero section CTA button using Next.js `Link`.
 - **Cloudinary Direct Upload UI (`src/components/PostEditor.tsx`):** Wired direct signed upload button into `PostEditor` Cover Image field calling `/api/upload` and POSTing to Cloudinary, auto-setting Cover URL.
+- **Dynamic SEO Metadata (`src/app/robots.ts`, `src/app/sitemap.ts`):** Added automated `robots.txt` disallowing `/admin` & `/api/` and dynamic `sitemap.xml` fetching published blog posts from Supabase.
 
 `npm run verify` green. Verified post creation successful end-to-end.
 
