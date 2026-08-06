@@ -20,6 +20,7 @@ Format: `YYYY-MM-DD-session-N-<topic>.md` linking to the session-or-equivalent. 
 | 2026-08-05 | Docs infrastructure + websearch stack re-audit + dep bumps | docs/process/*, ADR-0005 (re-audit), AGENTS.md, CLAUDE.md, README |
 | 2026-08-05 | Phases 7-6-8: Supabase + Blog + Admin (full MVP spec 001) | spec 001 (phases 6-8 shipped) |
 | 2026-08-05 | 404 page + CI pipeline + stale cleanup + deploy docs | spec 001 (404 done), AGENTS.md, docs/supabase/, .github/ |
+| 2026-08-06 | Admin login UI + Supabase auth redirect & table GRANTs | spec 001, docs/supabase/, docs/deploy/ |
 
 ## Entries
 
@@ -174,6 +175,17 @@ Manual-only follow-ups are intentionally not implemented in code:
 - Run `docs/supabase/001-posts.sql`
 - Add env vars in `.env.local` / Vercel
 - Deploy on Vercel and configure custom domain
+
+### 2026-08-06 — Admin login UI + Supabase auth redirect & table GRANTs
+
+Resolved auth UX gap and database permission issues during initial post creation test:
+
+- **Admin Login UI (`src/app/login/page.tsx`):** Created dark-themed login page with email & password form using `@/lib/supabase/client`.
+- **Auth Middleware Redirects (`src/lib/supabase/middleware.ts`, `src/middleware.ts`, `src/app/admin/page.tsx`):** Updated redirect target for unauthenticated users accessing `/admin` from `/` to `/login`. Added auto-redirect from `/login` to `/admin` for authenticated users. Added `/login` to middleware matcher.
+- **Supabase Key Fallbacks (`src/lib/supabase/server.ts`, `client.ts`, `middleware.ts`):** Added fallback support for `NEXT_PUBLIC_SUPABASE_ANON_KEY` alongside `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
+- **Database Table GRANTs (`docs/supabase/001-posts.sql`, `docs/deploy/supabase-setup.md`):** Added explicit `GRANT USAGE ON SCHEMA public` and `GRANT ALL ON TABLE posts TO authenticated` / `GRANT SELECT ON TABLE posts TO anon` statements to eliminate Postgres `permission denied for table posts` errors on initial write.
+
+`npm run verify` green. Verified post creation successful end-to-end.
 
 ## Conventions
 

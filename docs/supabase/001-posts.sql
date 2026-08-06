@@ -42,6 +42,11 @@ create trigger posts_updated_at
 -- ============================================================
 alter table posts enable row level security;
 
+-- Table permissions
+grant usage on schema public to anon, authenticated;
+grant select on table posts to anon;
+grant all on table posts to authenticated;
+
 -- Anon can read published posts only
 create policy "Public reads published posts"
   on posts for select

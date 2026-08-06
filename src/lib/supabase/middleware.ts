@@ -13,7 +13,8 @@ export async function updateSession(request: NextRequest) {
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         getAll() {
@@ -35,7 +36,7 @@ export async function updateSession(request: NextRequest) {
   // Refresh session — critical for Server Components that read auth state.
   await supabase.auth.getUser();
 
-  // Admin route protection: redirect to home if not authenticated.
+  // Admin route protection: redirect to /login if not authenticated.
   if (request.nextUrl.pathname.startsWith("/admin")) {
     const {
       data: { user },
@@ -43,7 +44,20 @@ export async function updateSession(request: NextRequest) {
 
     if (!user) {
       const url = request.nextUrl.clone();
-      url.pathname = "/";
+      url.pathname = "/login";
+      return NextResponse.redirect(url);
+    }
+  }
+
+  // Redirect authenticated user visiting /login directly to /admin
+  if (request.nextUrl.pathname.startsWith("/login")) {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (user) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/admin";
       return NextResponse.redirect(url);
     }
   }

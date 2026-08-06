@@ -73,13 +73,13 @@ Sau khi project sẵn sàng:
 |---|---|---|
 | **Project URL** | `https://xxxxx.supabase.co` | `NEXT_PUBLIC_SUPABASE_URL` |
 
-### NEXT_PUBLIC_SUPABASE_ANON_KEY
+### NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
 
 | Field trong dashboard | Copy value | Env var name |
 |---|---|---|
-| **anon public** key | `eyJhbG...` (JWT token) | `NEXT_PUBLIC_SUPABASE_ANON_KEY` |
+| **Publishable key** (trước đây là anon key) | `eyJhbG...` (JWT token) | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` |
 
-> `anon` key là public key — an toàn khi expose ở client. RLS policies kiểm soát data access.
+> Publishable key là public key — an toàn khi expose ở client. RLS policies kiểm soát data access.
 
 ### SUPABASE_SERVICE_ROLE_KEY
 
@@ -155,6 +155,7 @@ Blog admin cần ít nhất 1 Supabase Auth user.
 | Auto Confirm Email | ✅ Checked | Bỏ qua email verification trong dev |
 
 4. Click **"Create user"**
+5. Mở `http://localhost:3000/login` (hoặc `/admin`) để đăng nhập và bắt đầu viết bài.
 
 ---
 
@@ -164,7 +165,7 @@ Ghi lại 3 values từ Step 3:
 
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbG...
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=eyJhbG...
 SUPABASE_SERVICE_ROLE_KEY=eyJhbG...
 ```
 

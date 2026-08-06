@@ -42,8 +42,8 @@ Trước khi deploy, cần add env vars. Click **"Environment Variables"** secti
 |---|---|---|
 | **Name** | `NEXT_PUBLIC_SUPABASE_URL` | Production, Preview, Development |
 | **Value** | `https://xxxxx.supabase.co` | Từ Supabase dashboard (Step 3 của supabase-setup.md) |
-| **Name** | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Production, Preview, Development |
-| **Value** | `eyJhbG...` | Từ Supabase dashboard |
+| **Name** | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Production, Preview, Development |
+| **Value** | `eyJhbG...` | Từ Supabase dashboard (Publishable key) |
 | **Name** | `SUPABASE_SERVICE_ROLE_KEY` | Production, Preview, Development |
 | **Value** | `eyJhbG...` | Từ Supabase dashboard — ⚠️ **server-only** |
 

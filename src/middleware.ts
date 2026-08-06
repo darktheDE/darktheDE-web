@@ -13,5 +13,5 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   // Match /admin and /api routes. Skip _next, static files, images.
-  matcher: ["/admin/:path*", "/api/:path*", "/blog/:path*"],
+  matcher: ["/admin/:path*", "/login", "/api/:path*", "/blog/:path*"],
 };

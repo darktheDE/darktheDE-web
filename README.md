@@ -59,7 +59,7 @@ npm install
 
 # 3. Env
 cp .env.local.example .env.local
-# fill in NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, etc.
+# fill in NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY, etc.
 
 # 4. Dev server
 npm run dev
