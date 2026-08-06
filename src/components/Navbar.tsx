@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion as Motion, AnimatePresence } from "framer-motion";
 import {
@@ -9,16 +10,18 @@ import {
   FiLinkedin,
   FiMail,
   FiFacebook,
+  FiBookOpen,
 } from "react-icons/fi";
 import { SOCIAL_LINKS } from "@/data/config";
 import { cn } from "@/lib/cn";
 
 const navLinks = [
-  { name: "About", href: "#about" },
-  { name: "Stack", href: "#stack" },
-  { name: "Projects", href: "#projects" },
-  { name: "RTIC", href: "#rtic" },
-  { name: "Awards", href: "#certifications" },
+  { name: "About", href: "/#about" },
+  { name: "Stack", href: "/#stack" },
+  { name: "Projects", href: "/#projects" },
+  { name: "RTIC", href: "/#rtic" },
+  { name: "Awards", href: "/#certifications" },
+  { name: "Blog", href: "/blog" },
 ];
 
 export function Navbar() {
@@ -50,27 +53,34 @@ export function Navbar() {
           )}
         >
           <div className="flex items-center justify-between">
-            <a
-              href="#"
+            <Link
+              href="/"
               className="text-xl font-bold font-mono tracking-tighter text-text hover:text-accent transition-colors"
             >
               darkthe<span className="text-accent">DE</span>
-            </a>
+            </Link>
 
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.name}
                   href={link.href}
                   className="text-sm font-medium text-mute hover:text-accent transition-colors"
                 >
                   {link.name}
-                </a>
+                </Link>
               ))}
 
               <div className="w-px h-4 bg-rule" />
 
               <div className="flex items-center gap-4">
+                <Link
+                  href="/blog"
+                  className="text-mute hover:text-accent transition-colors"
+                  aria-label="Blog"
+                >
+                  <FiBookOpen size={18} />
+                </Link>
                 <a
                   href={SOCIAL_LINKS.github}
                   target="_blank"
@@ -132,17 +142,25 @@ export function Navbar() {
           >
             <div className="flex flex-col space-y-4">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
                   className="text-lg font-medium text-mute hover:text-accent transition-colors"
                 >
                   {link.name}
-                </a>
+                </Link>
               ))}
               <div className="h-px bg-rule my-2" />
               <div className="flex justify-center gap-6 pt-2">
+                <Link
+                  href="/blog"
+                  onClick={() => setIsOpen(false)}
+                  className="text-mute hover:text-accent"
+                  aria-label="Blog"
+                >
+                  <FiBookOpen size={24} />
+                </Link>
                 <a
                   href={SOCIAL_LINKS.github}
                   target="_blank"

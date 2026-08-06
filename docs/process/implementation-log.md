@@ -184,6 +184,7 @@ Resolved auth UX gap and database permission issues during initial post creation
 - **Auth Middleware Redirects (`src/lib/supabase/middleware.ts`, `src/middleware.ts`, `src/app/admin/page.tsx`):** Updated redirect target for unauthenticated users accessing `/admin` from `/` to `/login`. Added auto-redirect from `/login` to `/admin` for authenticated users. Added `/login` to middleware matcher.
 - **Supabase Key Fallbacks (`src/lib/supabase/server.ts`, `client.ts`, `middleware.ts`):** Added fallback support for `NEXT_PUBLIC_SUPABASE_ANON_KEY` alongside `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
 - **Database Table GRANTs (`docs/supabase/001-posts.sql`, `docs/deploy/supabase-setup.md`):** Added explicit `GRANT USAGE ON SCHEMA public` and `GRANT ALL ON TABLE posts TO authenticated` / `GRANT SELECT ON TABLE posts TO anon` statements to eliminate Postgres `permission denied for table posts` errors on initial write.
+- **Header & Hero Blog Links (`src/components/Navbar.tsx`, `src/components/Hero.tsx`, `src/data/config.ts`):** Updated `SOCIAL_LINKS.blog` to `/blog`. Added Blog link & icon (`FiBookOpen`) to desktop/mobile Navbar and Hero section CTA button using Next.js `Link`.
 
 `npm run verify` green. Verified post creation successful end-to-end.
 

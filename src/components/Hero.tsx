@@ -1,8 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { motion as Motion } from "framer-motion";
 import { FiArrowRight, FiBookOpen, FiDownload } from "react-icons/fi";
-import { PERSONAL_INFO, SOCIAL_LINKS, ASSETS } from "@/data/config";
+import { PERSONAL_INFO, ASSETS } from "@/data/config";
 
 const focusAreas = ["Spark", "Airflow", "Lakehouse", "Backend", "AI Agents"];
 
@@ -65,14 +66,12 @@ export function Hero() {
             >
               <FiDownload className="shrink-0" /> Download Data CV
             </a>
-            <a
-              href={SOCIAL_LINKS.blog}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 border border-rule bg-panel/30 px-6 py-3 font-semibold text-mute backdrop-blur-md transition-all hover:border-rule hover:text-text"
+            <Link
+              href="/blog"
+              className="inline-flex items-center justify-center gap-2 border border-rule bg-panel/40 px-6 py-3 font-semibold text-text backdrop-blur-md transition-all hover:border-accent/50 hover:bg-accent/10 hover:text-accent"
             >
-              <FiBookOpen className="shrink-0" /> Blog
-            </a>
+              <FiBookOpen className="shrink-0 text-accent" /> Read Blog
+            </Link>
           </div>
         </div>
       </Motion.div>

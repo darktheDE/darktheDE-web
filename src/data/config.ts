@@ -28,7 +28,7 @@ export const SOCIAL_LINKS = {
   linkedin: "https://www.linkedin.com/in/darkthede/",
   facebook: "https://www.facebook.com/dkh1105/",
   email: "mailto:dkh1105.work@gmail.com",
-  blog: "http://darkthede.notion.site/my-blog",
+  blog: "/blog",
 } as const;
 
 export const RTIC_INFO = {
