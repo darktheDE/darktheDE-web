@@ -25,7 +25,7 @@ export function Footer() {
                 href={SOCIAL_LINKS.email}
                 className="inline-flex items-center justify-center gap-2 bg-accent px-5 py-3 font-semibold text-ink transition-colors hover:bg-accent-dim"
               >
-                Contact Me <FiArrowRight />
+                Contact Me <FiArrowRight aria-hidden="true" focusable="false" />
               </a>
               <a
                 href={SOCIAL_LINKS.linkedin}
@@ -33,7 +33,7 @@ export function Footer() {
                 rel="noreferrer"
                 className="inline-flex items-center justify-center gap-2 border border-rule bg-panel/30 px-5 py-3 font-semibold text-text transition-colors hover:border-accent/40 hover:text-accent"
               >
-                LinkedIn <FiLinkedin />
+                LinkedIn <FiLinkedin aria-hidden="true" focusable="false" />
               </a>
             </div>
           </div>
@@ -53,7 +53,7 @@ export function Footer() {
                 className="text-mute transition-colors hover:text-accent"
                 aria-label="GitHub Profile"
               >
-                <FiGithub size={20} />
+                <FiGithub aria-hidden="true" focusable="false" size={20} />
               </a>
               <a
                 href={SOCIAL_LINKS.linkedin}
@@ -62,7 +62,7 @@ export function Footer() {
                 className="text-mute transition-colors hover:text-accent"
                 aria-label="LinkedIn Profile"
               >
-                <FiLinkedin size={20} />
+                <FiLinkedin aria-hidden="true" focusable="false" size={20} />
               </a>
               <a
                 href={SOCIAL_LINKS.facebook}
@@ -71,14 +71,14 @@ export function Footer() {
                 className="text-mute transition-colors hover:text-accent"
                 aria-label="Facebook Profile"
               >
-                <FiFacebook size={20} />
+                <FiFacebook aria-hidden="true" focusable="false" size={20} />
               </a>
               <a
                 href={SOCIAL_LINKS.email}
                 className="text-mute transition-colors hover:text-accent"
                 aria-label="Send Email"
               >
-                <FiMail size={20} />
+                <FiMail aria-hidden="true" focusable="false" size={20} />
               </a>
             </div>
           </div>

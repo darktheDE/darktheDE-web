@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 import { createClient } from "@/lib/supabase/server";
+import { SITE_URLS } from "@/data/config";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://darkthede.github.io";
+  const baseUrl = SITE_URLS.primary;
 
   const routes: MetadataRoute.Sitemap = [
     {

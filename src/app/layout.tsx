@@ -1,16 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./Providers";
 import { SEO_CONFIG, SITE_URLS, SOCIAL_LINKS, PERSONAL_INFO } from "@/data/config";
-
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
-  style: ["normal", "italic"],
-});
 
 const inter = Inter({
   variable: "--font-inter",
@@ -122,7 +114,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${inter.variable} h-full antialiased`}
+      className={`${inter.variable} h-full antialiased`}
     >
       <head>
         <script

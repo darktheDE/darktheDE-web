@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
+import { SITE_URLS } from "@/data/config";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://darkthede.github.io";
+  const baseUrl = SITE_URLS.primary;
 
   return {
     rules: {

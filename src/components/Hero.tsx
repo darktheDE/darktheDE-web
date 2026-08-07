@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { motion as Motion } from "framer-motion";
 import { FiArrowRight, FiBookOpen, FiDownload } from "react-icons/fi";
 import { PERSONAL_INFO, ASSETS } from "@/data/config";
 
@@ -12,12 +9,7 @@ export function Hero() {
     <section className="relative min-h-[92vh] overflow-hidden px-4 pt-28 sm:px-6 lg:px-8">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent" />
 
-      <Motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="relative z-10 mx-auto max-w-7xl lg:min-h-[calc(92vh-7rem)] flex flex-col justify-center py-12"
-      >
+      <div className="relative z-10 mx-auto flex max-w-7xl flex-col justify-center py-12 lg:min-h-[calc(92vh-7rem)]">
         <div className="max-w-3xl">
           <p className="font-mono text-sm text-mute sm:text-base">
             Hi, I&apos;m {PERSONAL_INFO.name}
@@ -57,24 +49,25 @@ export function Hero() {
               href="#projects"
               className="inline-flex items-center justify-center gap-2 bg-accent px-6 py-3 font-semibold text-ink shadow-lg shadow-accent/20 transition-all hover:bg-accent-dim hover:shadow-accent/30"
             >
-              View Data Projects <FiArrowRight className="shrink-0" />
+              View Data Projects
+              <FiArrowRight aria-hidden="true" focusable="false" className="shrink-0" />
             </a>
             <a
               href={ASSETS.cvData}
               download
               className="inline-flex items-center justify-center gap-2 border border-accent/30 bg-surface/70 px-6 py-3 font-semibold text-accent backdrop-blur-md transition-all hover:border-accent hover:bg-accent/10"
             >
-              <FiDownload className="shrink-0" /> Download Data CV
+              <FiDownload aria-hidden="true" focusable="false" className="shrink-0" /> Download Data CV
             </a>
             <Link
               href="/blog"
               className="inline-flex items-center justify-center gap-2 border border-rule bg-panel/40 px-6 py-3 font-semibold text-text backdrop-blur-md transition-all hover:border-accent/50 hover:bg-accent/10 hover:text-accent"
             >
-              <FiBookOpen className="shrink-0 text-accent" /> Read Blog
+              <FiBookOpen aria-hidden="true" focusable="false" className="shrink-0 text-accent" /> Read Blog
             </Link>
           </div>
         </div>
-      </Motion.div>
+      </div>
     </section>
   );
 }

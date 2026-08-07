@@ -79,7 +79,7 @@ export function Navbar() {
                   className="text-mute hover:text-accent transition-colors"
                   aria-label="Blog"
                 >
-                  <FiBookOpen size={18} />
+                  <FiBookOpen aria-hidden="true" focusable="false" size={18} />
                 </Link>
                 <a
                   href={SOCIAL_LINKS.github}
@@ -88,7 +88,7 @@ export function Navbar() {
                   className="text-mute hover:text-accent transition-colors"
                   aria-label="GitHub Profile"
                 >
-                  <FiGithub size={18} />
+                  <FiGithub aria-hidden="true" focusable="false" size={18} />
                 </a>
                 <a
                   href={SOCIAL_LINKS.linkedin}
@@ -97,7 +97,7 @@ export function Navbar() {
                   className="text-mute hover:text-accent transition-colors"
                   aria-label="LinkedIn Profile"
                 >
-                  <FiLinkedin size={18} />
+                  <FiLinkedin aria-hidden="true" focusable="false" size={18} />
                 </a>
                 <a
                   href={SOCIAL_LINKS.facebook}
@@ -106,14 +106,14 @@ export function Navbar() {
                   className="text-mute hover:text-accent transition-colors"
                   aria-label="Facebook Profile"
                 >
-                  <FiFacebook size={18} />
+                  <FiFacebook aria-hidden="true" focusable="false" size={18} />
                 </a>
                 <a
                   href={SOCIAL_LINKS.email}
                   className="text-mute hover:text-accent transition-colors"
                   aria-label="Send Email"
                 >
-                  <FiMail size={18} />
+                  <FiMail aria-hidden="true" focusable="false" size={18} />
                 </a>
               </div>
             </div>
@@ -125,7 +125,7 @@ export function Navbar() {
               aria-expanded={isOpen}
               aria-controls="mobile-navigation"
             >
-              {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+              {isOpen ? <FiX aria-hidden="true" focusable="false" size={24} /> : <FiMenu aria-hidden="true" focusable="false" size={24} />}
             </button>
           </div>
         </div>
@@ -159,7 +159,7 @@ export function Navbar() {
                   className="text-mute hover:text-accent"
                   aria-label="Blog"
                 >
-                  <FiBookOpen size={24} />
+                  <FiBookOpen aria-hidden="true" focusable="false" size={24} />
                 </Link>
                 <a
                   href={SOCIAL_LINKS.github}
@@ -168,7 +168,7 @@ export function Navbar() {
                   className="text-mute hover:text-accent"
                   aria-label="GitHub Profile"
                 >
-                  <FiGithub size={24} />
+                  <FiGithub aria-hidden="true" focusable="false" size={24} />
                 </a>
                 <a
                   href={SOCIAL_LINKS.linkedin}
@@ -177,7 +177,7 @@ export function Navbar() {
                   className="text-mute hover:text-accent"
                   aria-label="LinkedIn Profile"
                 >
-                  <FiLinkedin size={24} />
+                  <FiLinkedin aria-hidden="true" focusable="false" size={24} />
                 </a>
                 <a
                   href={SOCIAL_LINKS.facebook}
@@ -186,14 +186,14 @@ export function Navbar() {
                   className="text-mute hover:text-accent"
                   aria-label="Facebook Profile"
                 >
-                  <FiFacebook size={24} />
+                  <FiFacebook aria-hidden="true" focusable="false" size={24} />
                 </a>
                 <a
                   href={SOCIAL_LINKS.email}
                   className="text-mute hover:text-accent"
                   aria-label="Send Email"
                 >
-                  <FiMail size={24} />
+                  <FiMail aria-hidden="true" focusable="false" size={24} />
                 </a>
               </div>
             </div>

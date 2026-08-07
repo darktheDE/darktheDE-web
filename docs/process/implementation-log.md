@@ -21,6 +21,7 @@ Format: `YYYY-MM-DD-session-N-<topic>.md` linking to the session-or-equivalent. 
 | 2026-08-05 | Phases 7-6-8: Supabase + Blog + Admin (full MVP spec 001) | spec 001 (phases 6-8 shipped) |
 | 2026-08-05 | 404 page + CI pipeline + stale cleanup + deploy docs | spec 001 (404 done), AGENTS.md, docs/supabase/, .github/ |
 | 2026-08-06 | Admin login UI + Supabase auth redirect & table GRANTs | spec 001, docs/supabase/, docs/deploy/ |
+| 2026-08-07 | Lighthouse performance + SEO hardening | docs/process/implementation-log |
 
 ## Entries
 
@@ -189,6 +190,30 @@ Resolved auth UX gap and database permission issues during initial post creation
 - **Dynamic SEO Metadata (`src/app/robots.ts`, `src/app/sitemap.ts`):** Added automated `robots.txt` disallowing `/admin` & `/api/` and dynamic `sitemap.xml` fetching published blog posts from Supabase.
 
 `npm run verify` green. Verified post creation successful end-to-end.
+
+### 2026-08-07 — Lighthouse performance + SEO hardening
+
+Ran Lighthouse against `https://darkthede-web.vercel.app/` and found production performance score at 68-69, with LCP blocked by hero text rendering and font/network work. Also found desktop SEO at 92 because the deployed `robots.txt` pointed its sitemap at `http://localhost:3000/sitemap.xml`.
+
+**Findings:**
+- Hero copy was the LCP candidate and lived inside a framer-motion wrapper that rendered `opacity: 0` until hydration.
+- Fraunces loaded 5 weights plus italic variants but `font-serif` was unused in source.
+- `NEXT_PUBLIC_SITE_URL=http://localhost:3000` can leak into canonical, robots, sitemap, and signout URLs if configured in a production build environment.
+- React icon SVGs used decoratively next to visible labels but lacked `aria-hidden`/`focusable="false"`.
+
+**Built:**
+- `src/data/config.ts` — centralized `resolvePrimarySiteUrl()` guard that ignores localhost and falls back to Vercel URL or GitHub Pages.
+- `src/app/robots.ts`, `src/app/sitemap.ts`, `src/app/api/auth/signout/route.ts` — switched to `SITE_URLS.primary`.
+- `src/app/layout.tsx`, `src/app/globals.css` — removed unused Fraunces font wiring.
+- `src/components/Hero.tsx` — converted Hero to a server component and removed the framer-motion opacity gate around LCP text.
+- `src/components/BentoGrid.tsx`, `Footer.tsx`, `Navbar.tsx`, `RTICSection.tsx`, `Hero.tsx` — marked decorative React icons as hidden from assistive tech.
+
+**Verification:**
+- `npm run verify` green.
+- Local production Lighthouse mobile after fixes: Performance 79, Accessibility 100, Best Practices 100, SEO 100. FCP improved from 3.1s to 1.9s; Speed Index from 8.2s to 2.8s; total byte weight from 754 KiB to 619 KiB.
+
+**Open follow-up:**
+- Update Vercel production env `NEXT_PUBLIC_SITE_URL` to the canonical production URL or remove it so `VERCEL_URL` fallback is used; then redeploy and re-run Lighthouse on production.
 
 ## Conventions
 

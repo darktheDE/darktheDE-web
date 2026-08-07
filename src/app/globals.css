@@ -41,7 +41,6 @@
   --z-index-skiplink: 100;
 
   /* Fonts (CSS vars set by layout.tsx via next/font) */
-  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
   /* Monaspace Neon self-host pending.
      TODO: download MonaspaceNeonVar.woff2 from
        https://github.com/githubnext/monaspace/releases (latest variable webfont zip, Neon variant)

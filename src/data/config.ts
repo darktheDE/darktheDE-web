@@ -42,14 +42,21 @@ export const RTIC_INFO = {
   website: "https://hcmutertic.com/",
 } as const;
 
+function resolvePrimarySiteUrl() {
+  const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  const vercelUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined;
+
+  if (configuredUrl && !configuredUrl.includes("localhost")) {
+    return configuredUrl;
+  }
+
+  return vercelUrl || "https://darkthede.github.io";
+}
+
 export const SITE_URLS = {
   githubPages: "https://darkthede.github.io",
   vercel: "https://darkthede-web.vercel.app",
-  primary:
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    (process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "https://darkthede.github.io"),
+  primary: resolvePrimarySiteUrl(),
 } as const;
 
 export const SEO_CONFIG = {

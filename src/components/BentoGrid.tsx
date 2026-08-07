@@ -255,7 +255,7 @@ export function BentoGrid() {
                         key={skill.name}
                         className="flex items-center gap-2 text-sm text-mute"
                       >
-                        <Icon className={cn("h-5 w-5 shrink-0", skill.color)} />
+                        <Icon aria-hidden="true" className={cn("h-5 w-5 shrink-0", skill.color)} />
                         <span className="min-w-0 text-xs leading-tight sm:text-sm">
                           {skill.name}
                         </span>
@@ -332,7 +332,7 @@ export function BentoGrid() {
 
               <div className="flex flex-col p-6">
                 <div className="mb-4 flex items-center gap-2 text-accent">
-                  <FiDatabase />
+                  <FiDatabase aria-hidden="true" focusable="false" />
                   <span className="font-mono text-[10px] uppercase tracking-[0.2em]">
                     {featuredProject.categoryTag}
                   </span>
@@ -362,7 +362,7 @@ export function BentoGrid() {
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:underline"
                   >
-                    <FiExternalLink /> Case Study
+                    <FiExternalLink aria-hidden="true" focusable="false" /> Case Study
                   </a>
                   <a
                     href={featuredProject.repoUrl}
@@ -370,7 +370,7 @@ export function BentoGrid() {
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 text-sm font-semibold text-mute transition-colors hover:text-text"
                   >
-                    <FiGithub /> Source
+                    <FiGithub aria-hidden="true" focusable="false" /> Source
                   </a>
                 </div>
               </div>
@@ -426,7 +426,7 @@ export function BentoGrid() {
                   rel="noreferrer"
                   className="inline-flex items-center gap-1 text-xs font-mono text-accent hover:underline"
                 >
-                  <FiExternalLink /> Case
+                  <FiExternalLink aria-hidden="true" focusable="false" /> Case
                 </a>
                 <a
                   href={project.repoUrl}
@@ -434,7 +434,7 @@ export function BentoGrid() {
                   rel="noreferrer"
                   className="inline-flex items-center gap-1 text-xs font-mono text-mute transition-colors hover:text-text"
                 >
-                  <FiGithub /> Source
+                  <FiGithub aria-hidden="true" focusable="false" /> Source
                 </a>
               </div>
             </div>
@@ -504,7 +504,7 @@ export function BentoGrid() {
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 bg-accent px-5 py-2.5 text-xs font-mono font-semibold text-ink shadow-lg shadow-accent/20 transition-all hover:bg-accent-dim hover:shadow-accent/30"
                 >
-                  <FiExternalLink /> Case Study
+                  <FiExternalLink aria-hidden="true" focusable="false" /> Case Study
                 </a>
                 <a
                   href={selectedProject.repoUrl}
@@ -512,7 +512,7 @@ export function BentoGrid() {
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 border border-rule bg-panel/30 px-5 py-2.5 text-xs font-mono font-semibold text-mute backdrop-blur-md transition-all hover:border-rule hover:text-text"
                 >
-                  <FiGithub /> Source Code
+                  <FiGithub aria-hidden="true" focusable="false" /> Source Code
                 </a>
               </div>
 

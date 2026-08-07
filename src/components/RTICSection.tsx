@@ -35,7 +35,7 @@ export function RTICSection() {
         <div className="relative z-10 grid gap-10 lg:grid-cols-[1fr_0.85fr] lg:items-center">
           <div>
             <div className="mb-5 inline-flex items-center gap-2 border border-blue-400/20 bg-blue-400/10 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-blue-300">
-              <FiUsers /> Community Leadership
+              <FiUsers aria-hidden="true" focusable="false" /> Community Leadership
             </div>
             <h2 className="max-w-3xl text-3xl font-black leading-tight text-text sm:text-4xl">
               Building a technical community through {RTIC_INFO.name}.
@@ -83,7 +83,7 @@ export function RTICSection() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 bg-blue-500 px-5 py-3 text-sm font-semibold text-text transition-colors hover:bg-blue-400"
               >
-                <FiExternalLink /> Fanpage
+                <FiExternalLink aria-hidden="true" focusable="false" /> Fanpage
               </a>
               <a
                 href={RTIC_INFO.github}
@@ -91,7 +91,7 @@ export function RTICSection() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 border border-rule bg-panel/40 px-5 py-3 text-sm font-semibold text-text transition-colors hover:border-accent/40 hover:text-accent"
               >
-                <FiGithub /> GitHub
+                <FiGithub aria-hidden="true" focusable="false" /> GitHub
               </a>
             </div>
           </div>
