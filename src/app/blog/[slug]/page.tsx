@@ -25,16 +25,32 @@ export async function generateMetadata({
   const supabase = await createClient();
   const { data: post } = await supabase
     .from("posts")
-    .select("title, excerpt")
+    .select("title, excerpt, cover_url")
     .eq("slug", slug)
     .eq("status", "published")
     .single();
 
   if (!post) return { title: "Post not found" };
 
+  const title = `${post.title} — darktheDE`;
+  const description = post.excerpt ?? `Blog post: ${post.title}`;
+  const images = post.cover_url ? [post.cover_url] : ["/assets/profile/profile01.png"];
+
   return {
-    title: `${post.title} — darktheDE`,
-    description: post.excerpt ?? `Blog post: ${post.title}`,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      images,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images,
+    },
   };
 }
 
@@ -63,8 +79,28 @@ export default async function BlogPostPage({
       })
     : null;
 
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt || post.title,
+    image: post.cover_url || "https://darkthede.github.io/assets/profile/profile01.png",
+    datePublished: post.published_at || new Date().toISOString(),
+    author: {
+      "@type": "Person",
+      name: "Đỗ Kiến Hưng (darktheDE)",
+      url: "https://darkthede.github.io",
+    },
+  };
+
   return (
     <article className="mx-auto max-w-3xl px-4 py-24 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(blogSchema).replace(/</g, "\\u003c"),
+        }}
+      />
       <Link
         href="/blog"
         className="font-mono text-xs uppercase tracking-[0.22em] text-accent hover:underline"

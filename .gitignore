@@ -40,4 +40,5 @@ yarn-error.log*
 next-env.d.ts
 
 # Claude Code personal scratchpad
-CLAUDE.local.md
+CLAUDE.local.
+lighthouse-report.json

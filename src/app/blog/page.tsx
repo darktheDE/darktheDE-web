@@ -7,6 +7,20 @@ export const metadata: Metadata = {
   title: "Blog — darktheDE",
   description:
     "Thoughts on data engineering, backend systems, and building reliable data products.",
+  openGraph: {
+    title: "Blog — darktheDE",
+    description:
+      "Thoughts on data engineering, backend systems, and building reliable data products.",
+    type: "website",
+    images: ["/assets/profile/profile01.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog — darktheDE",
+    description:
+      "Thoughts on data engineering, backend systems, and building reliable data products.",
+    images: ["/assets/profile/profile01.png"],
+  },
 };
 
 interface Post {

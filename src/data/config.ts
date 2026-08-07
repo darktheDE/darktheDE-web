@@ -42,13 +42,39 @@ export const RTIC_INFO = {
   website: "https://hcmutertic.com/",
 } as const;
 
+export const SITE_URLS = {
+  githubPages: "https://darkthede.github.io",
+  vercel: "https://darkthede-web.vercel.app",
+  primary:
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "https://darkthede.github.io"),
+} as const;
+
+export const SEO_CONFIG = {
+  title: "darktheDE - Data Engineer",
+  description:
+    "Third-year Data Engineering student at HCM-UTE. I build reliable data systems from raw events to AI-ready products.",
+  keywords: [
+    "Data Engineer",
+    "darktheDE",
+    "Đỗ Kiến Hưng",
+    "HCM-UTE",
+    "Lakehouse Architecture",
+    "Big Data Pipelines",
+    "Apache Spark",
+    "Apache Airflow",
+    "Delta Lake",
+    "Data Engineering Portfolio",
+    "RTIC Vice Leader",
+    "Data Engineering Vietnam",
+  ],
+} as const;
+
 export const ASSETS = {
   cvData: "/CV_DATA_OF_DO_KIEN_HUNG.pdf",
   cvSoftware: "/CV_SOFTWARE_OF_DO_KIEN_HUNG.pdf",
   profileImage: "/assets/profile/profile01.png",
-  favicon: "/assets/profile-favicon.png",
+  favicon: "/assets/logo-favicon.png",
 } as const;
-
-// Alias favicon at root for Next.js metadata API:
-// `app/favicon.ico` and `public/favicon.ico` are auto-detected;
-// we also expose the PNG via /assets/profile-favicon.png.
